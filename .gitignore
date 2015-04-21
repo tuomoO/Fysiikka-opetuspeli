@@ -27,3 +27,8 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+
+#more visual studio files
+*.sdf
+*.opensdf
+
