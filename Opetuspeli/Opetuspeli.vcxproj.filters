@@ -201,6 +201,7 @@
     <ClCompile Include="RenderSystem.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
+    <ClCompile Include="SceneSys.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -373,6 +374,10 @@
     </ClInclude>
     <ClInclude Include="RenderSystem.h">
       <Filter>Include\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSys.h" />
+    <ClInclude Include="SceneParent.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

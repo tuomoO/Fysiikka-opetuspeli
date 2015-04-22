@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SceneSys.h"
 #include "GameObject.h"
 #include "RenderSystem.h"
 #include "PhysicsSystem.h"
@@ -104,4 +105,17 @@ int main()
 
     return 0;
 }
+
+
+/* Example on using SceneSys
+
+float deltaTime = 0.0f; 
+
+Update:
+
+deltaTime = clock.restart().asSeconds();	// deltaTime as seconds.
+SceneSys::Update(deltaTime, event);			// Update opened scenes.
+SceneSys::Draw(window);						// Draw scenes.
+
+*/
 
