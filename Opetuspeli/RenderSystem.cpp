@@ -3,8 +3,8 @@
 using namespace sf;
 using namespace std;
 
-RenderSystem::RenderSystem(RenderWindow* window)
-	:mWindow(window)
+RenderSystem::RenderSystem(RenderWindow* window, float scale)
+	:mWindow(window), mScale(scale)
 {
 }
 
@@ -23,7 +23,12 @@ void RenderSystem::draw(GameObject* gameObject)
 		PhysicsComponent* physics = gameObject->getComponent<PhysicsComponent>();
 		if (physics != nullptr)
 		{
-			shape.setPosition(flipY(physics->getBody()->GetPosition()));
+			Vector2f position = mScale * flipY(physics->getBody()->GetPosition());
+			shape.setPosition(position);
+			//shape.setOrigin()
+			//TODO set origin and position using scale
+
+			shape.setRotation(physics->getBody()->GetAngle() * 180 / b2_pi);
 		}
 		mWindow->draw(shape);
 	}

@@ -41,7 +41,7 @@ int main()
 	
 
 	//systems
-	RenderSystem renderSystem = RenderSystem(&window);
+	RenderSystem renderSystem = RenderSystem(&window, 30.0f);
 	PhysicsSystem physicsSystem = PhysicsSystem(&world, windowWidth, windowHeight);
 	RenderComponentFactory renderFactory;
 	TransformComponentFactory transformFactory;
@@ -50,12 +50,12 @@ int main()
 	srand(time(NULL));
 	vector<GameObject*> gameObjects;
 	using GoIt = vector<GameObject*>::iterator;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		GameObject* go = new GameObject;
-		go->add(renderFactory.make("koala.png", 30 + rand() % 200, 30 + rand() % 200));
+		go->add(renderFactory.make("koala.png"));
 		//go->add(transformFactory.make(rand() % windowWidth, rand() % windowHeight));
-		go->add(physicsFactory.make(rand() % windowWidth, rand() % windowHeight,
+		go->add(physicsFactory.make(rand() % windowWidth, windowHeight - rand() % 100, 3, 3,
 			0, 0, (rand() % 1000 + 1) / 1000.0f));
 		gameObjects.push_back(go);
 	}
@@ -80,7 +80,8 @@ int main()
 
 		for (GoIt i = gameObjects.begin(); i != gameObjects.end(); i++)
 		{
-			physicsSystem.update(*i);
+			physicsSystem.stepWorld(dt);
+			//physicsSystem.update(*i);
 			renderSystem.draw(*i);
 		}
 		renderSystem.swapBuffers();

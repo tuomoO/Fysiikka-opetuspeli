@@ -9,7 +9,7 @@
 class RenderSystem
 {
 public:
-	RenderSystem(sf::RenderWindow* window);
+	RenderSystem(sf::RenderWindow* window, float scale);
 	~RenderSystem();
 
 	void draw(GameObject* gameObject);
@@ -19,5 +19,6 @@ public:
 
 private:
 	sf::RenderWindow* mWindow;
+	float mScale;
 };
 

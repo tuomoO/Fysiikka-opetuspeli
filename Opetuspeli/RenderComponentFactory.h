@@ -8,10 +8,9 @@ public:
 	RenderComponentFactory();
 	~RenderComponentFactory();
 
-	RenderComponent* make(float x, float y, bool centerOrigin = true);
-	RenderComponent* make(std::string texturePath, float x, float y, bool centerOrigin = true);
+	RenderComponent* make(bool centerOrigin = true);
+	RenderComponent* make(std::string texturePath, bool centerOrigin = true);
 
 private:
-	RenderComponent* setShape(float x, float y, bool centerOrigin);
-
+	RenderComponent* setShape(bool centerOrigin);
 };

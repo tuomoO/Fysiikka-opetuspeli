@@ -16,7 +16,7 @@ PhysicsSystem::PhysicsSystem(b2World* world, int windowWidth, int windowHeight)
 	mGround = mWorld->CreateBody(&groundBodyDef);
 
 	b2PolygonShape groundShape;
-	groundShape.SetAsBox(windowWidth / 2.0f, 16.0f / 2.0f);
+	groundShape.SetAsBox(windowWidth, 50.0f);
 	b2FixtureDef groundFixtureDef;
 	groundFixtureDef.density = 0.0f;
 	groundFixtureDef.shape = &groundShape;
@@ -31,6 +31,7 @@ PhysicsSystem::~PhysicsSystem()
 
 void PhysicsSystem::update(GameObject* obj)
 {
+	/*
 	TransformComponent* transform = obj->getComponent<TransformComponent>();
 	if (transform != nullptr)
 	{
@@ -48,6 +49,18 @@ void PhysicsSystem::update(GameObject* obj)
 
 		 transform->setPosition(result.x, result.y);
 	}
+	*/
+
+	PhysicsComponent* physics = obj->getComponent<PhysicsComponent>();
+	if (physics != nullptr)
+	{
+
+	}
+}
+
+void PhysicsSystem::stepWorld(float dt)
+{
+	mWorld->Step(1/60.0f, 8, 3);
 }
 
 void PhysicsSystem::checkWindowCollision(b2Vec2& position)

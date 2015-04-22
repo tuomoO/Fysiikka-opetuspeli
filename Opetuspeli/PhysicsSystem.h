@@ -11,6 +11,7 @@ public:
 	~PhysicsSystem();
 
 	void update(GameObject* obj);
+	void stepWorld(float dt);
 
 private:
 	void checkWindowCollision(b2Vec2& position);

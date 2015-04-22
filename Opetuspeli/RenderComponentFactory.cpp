@@ -12,29 +12,29 @@ RenderComponentFactory::~RenderComponentFactory()
 
 }
 
-RenderComponent* RenderComponentFactory::make(float x, float y, bool centerOrigin)
+RenderComponent* RenderComponentFactory::make(bool centerOrigin)
 {
-	return setShape(x, y, centerOrigin);
+	return setShape(centerOrigin);
 }
 
-RenderComponent* RenderComponentFactory::make(std::string texturePath, float x, float y, bool centerOrigin)
+RenderComponent* RenderComponentFactory::make(std::string texturePath, bool centerOrigin)
 {
-	RenderComponent* result = setShape(x, y, centerOrigin);
+	RenderComponent* result = setShape(centerOrigin);
 	result->mTexture = new Texture();
 	result->mTexture->loadFromFile(texturePath);
 	result->mTexture->setSmooth(true);
 	result->mShape.setFillColor(Color(rand() % 255, rand() % 255, rand() % 255));
-
 	result->mShape.setTexture(result->mTexture);
+
 	return result;
 }
 
-RenderComponent* RenderComponentFactory::setShape(float x, float y, bool centerOrigin)
+RenderComponent* RenderComponentFactory::setShape(bool centerOrigin)
 {
 	RenderComponent* result = new RenderComponent();
-	result->mShape = RectangleShape(Vector2f(x, y));
+	result->mShape = RectangleShape(Vector2f(1.0f, 1.0f));
 	result->mShape.setPosition(0, 0);
 	if (centerOrigin)
-		result->mShape.setOrigin(x*0.5f, y*0.5f);
+		result->mShape.setOrigin(0.5f, 0.5f);
 	return result;
 }
