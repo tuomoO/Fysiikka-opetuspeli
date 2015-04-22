@@ -7,7 +7,7 @@
 class PhysicsSystem
 {
 public:
-	PhysicsSystem(float gravityX, float gravityY, int windowWidth, int windowHeight);
+	PhysicsSystem(b2World* world, int windowWidth, int windowHeight);
 	~PhysicsSystem();
 
 	void update(GameObject* obj);
@@ -15,7 +15,9 @@ public:
 private:
 	void checkWindowCollision(b2Vec2& position);
 
-	b2Vec2 mGravity;
+	b2World* mWorld;
+	b2Body* mGround;
+
 	b2Vec2 mWindowSize;
 };
 

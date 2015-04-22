@@ -10,6 +10,7 @@ RenderComponent::RenderComponent()
 
 RenderComponent::~RenderComponent()
 {
+	delete mTexture;
 }
 
 RectangleShape* RenderComponent::getDrawable()

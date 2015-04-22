@@ -20,13 +20,11 @@ void RenderSystem::draw(GameObject* gameObject)
 	if (render != nullptr)
 	{
 		RectangleShape shape = *render->getDrawable();
-
-		TransformComponent* transform = gameObject->getComponent<TransformComponent>();
-		if (transform != nullptr)
+		PhysicsComponent* physics = gameObject->getComponent<PhysicsComponent>();
+		if (physics != nullptr)
 		{
-			shape.setPosition(transform->getPosition());
+			shape.setPosition(flipY(physics->getBody()->GetPosition()));
 		}
-
 		mWindow->draw(shape);
 	}
 }
@@ -35,4 +33,9 @@ void RenderSystem::draw(GameObject* gameObject)
 void RenderSystem::swapBuffers()
 {
 	mWindow->display();
+}
+
+Vector2f RenderSystem::flipY(b2Vec2 original)
+{
+	return Vector2f(original.x, mWindow->getSize().y - original.y);
 }

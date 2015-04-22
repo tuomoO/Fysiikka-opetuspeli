@@ -28,30 +28,36 @@ static float pulse(float x)
 
 int main()
 {
+	//window
 	const int windowWidth = 1024;
 	const int windowHeight = 720;
 	RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "PhysicsGame", Style::Close);
 	//window.setFramerateLimit(60u);
+
+	//box2D
+	b2Vec2 gravity(0.0, -1.0);
+	b2World world(gravity);
+	
+
+	//systems
 	RenderSystem renderSystem = RenderSystem(&window);
-	PhysicsSystem physicsSystem = PhysicsSystem(0.0f, 1.0f, windowWidth, windowHeight);
+	PhysicsSystem physicsSystem = PhysicsSystem(&world, windowWidth, windowHeight);
 	RenderComponentFactory renderFactory;
 	TransformComponentFactory transformFactory;
-	PhysicsComponentFactory physicsFactory;
+	PhysicsComponentFactory physicsFactory(&world);
 
 	srand(time(NULL));
-	vector<GameObject*> scene;
+	vector<GameObject*> gameObjects;
 	using GoIt = vector<GameObject*>::iterator;
 	for (int i = 0; i < 10; i++)
 	{
 		GameObject* go = new GameObject;
 		go->add(renderFactory.make("koala.png", 30 + rand() % 200, 30 + rand() % 200));
-		go->add(transformFactory.make(rand() % windowWidth, rand() % windowHeight));
-		go->add(physicsFactory.make(0, 0, (rand() % 1000 + 1) / 1000.0f));
-		scene.push_back(go);
+		//go->add(transformFactory.make(rand() % windowWidth, rand() % windowHeight));
+		go->add(physicsFactory.make(rand() % windowWidth, rand() % windowHeight,
+			0, 0, (rand() % 1000 + 1) / 1000.0f));
+		gameObjects.push_back(go);
 	}
-
-	//box2D
-	b2Vec2 gravity = b2Vec2(0.0, -1.0);
 
 	//time
 	LARGE_INTEGER startTime, endTime, frequency, milliSeconds;
@@ -71,7 +77,7 @@ int main()
         }
         window.clear();
 
-		for (GoIt i = scene.begin(); i != scene.end(); i++)
+		for (GoIt i = gameObjects.begin(); i != gameObjects.end(); i++)
 		{
 			physicsSystem.update(*i);
 			renderSystem.draw(*i);
@@ -91,7 +97,7 @@ int main()
 		window.setTitle("Delta time(ms): " + deltaStream.str() + " | fps: " + framesStream.str());
     }
 
-	for (GoIt i = scene.begin(); i != scene.end(); i++)
+	for (GoIt i = gameObjects.begin(); i != gameObjects.end(); i++)
 	{
 		delete *i;
 	}

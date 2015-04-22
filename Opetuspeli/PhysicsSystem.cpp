@@ -3,16 +3,30 @@
 #include "PhysicsComponent.h"
 
 #include "SFML\Graphics.hpp"
+#include "Box2D\Dynamics\b2World.h"
 
 
-PhysicsSystem::PhysicsSystem(float gravityX, float gravityY, int windowWidth, int windowHeight)
-	:mGravity(gravityX, gravityY), mWindowSize(windowWidth, windowHeight)
+PhysicsSystem::PhysicsSystem(b2World* world, int windowWidth, int windowHeight)
+	:mWorld(world), mWindowSize(windowWidth, windowHeight)
 {
+	b2BodyDef groundBodyDef;
+	groundBodyDef.position = b2Vec2(0, 0);
+	//groundBodyDef.position = b2Vec2(X / 30.f, Y / 30.f);
+	groundBodyDef.type = b2_staticBody;
+	mGround = mWorld->CreateBody(&groundBodyDef);
+
+	b2PolygonShape groundShape;
+	groundShape.SetAsBox(windowWidth / 2.0f, 16.0f / 2.0f);
+	b2FixtureDef groundFixtureDef;
+	groundFixtureDef.density = 0.0f;
+	groundFixtureDef.shape = &groundShape;
+	mGround->CreateFixture(&groundFixtureDef);
 }
 
 
 PhysicsSystem::~PhysicsSystem()
 {
+	//delete mGround;
 }
 
 void PhysicsSystem::update(GameObject* obj)
@@ -27,7 +41,7 @@ void PhysicsSystem::update(GameObject* obj)
 		 if (physics != nullptr)
 		 {
 			 result += physics->getVelocity();
-			 result += physics->getMass() * mGravity;
+			 result += physics->getMass() * mWorld->GetGravity();
 		 }
 		 checkWindowCollision(result);
 		 

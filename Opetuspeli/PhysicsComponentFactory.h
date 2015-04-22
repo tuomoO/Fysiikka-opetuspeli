@@ -5,9 +5,12 @@
 class PhysicsComponentFactory
 {
 public:
-	PhysicsComponentFactory();
+	PhysicsComponentFactory(b2World* world);
 	~PhysicsComponentFactory();
 
-	PhysicsComponent* make(float velX, float velY, float mass);
+	PhysicsComponent* make(float posX, float posY, float velX, float velY, float mass);
+
+private:
+	b2World* mWorld;
 };
 
