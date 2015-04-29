@@ -183,9 +183,6 @@
     <ClCompile Include="RenderComponent.cpp">
       <Filter>Source\Component</Filter>
     </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>Source\Component</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
@@ -193,9 +190,6 @@
       <Filter>Source\Factory</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponentFactory.cpp">
-      <Filter>Source\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponentFactory.cpp">
       <Filter>Source\Factory</Filter>
     </ClCompile>
     <ClCompile Include="RenderSystem.cpp">
@@ -357,16 +351,10 @@
     <ClInclude Include="RenderComponent.h">
       <Filter>Include\Component</Filter>
     </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Include\Component</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsComponentFactory.h">
       <Filter>Include\Factory</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponentFactory.h">
-      <Filter>Include\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformComponentFactory.h">
       <Filter>Include\Factory</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsSystem.h">

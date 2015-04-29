@@ -25,8 +25,8 @@ void RenderSystem::draw(GameObject* gameObject)
 		{
 			Vector2f position = mScale * flipY(physics->getBody()->GetPosition());
 			shape.setPosition(position);
-			//shape.setOrigin()
-			//TODO set origin and position using scale
+			shape.setSize(1.02f * mScale * physics->getSize());
+			shape.setOrigin(shape.getSize() * 0.5f);
 
 			shape.setRotation(physics->getBody()->GetAngle() * 180 / b2_pi);
 		}
@@ -42,5 +42,5 @@ void RenderSystem::swapBuffers()
 
 Vector2f RenderSystem::flipY(b2Vec2 original)
 {
-	return Vector2f(original.x, mWindow->getSize().y - original.y);
+	return Vector2f(original.x, mWindow->getSize().y / mScale - original.y);
 }

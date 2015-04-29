@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TransformComponent.h"
+#include "Component.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -17,6 +17,6 @@ public:
 	sf::RectangleShape* getDrawable();
 
 private:
-    sf::RectangleShape mShape;
+    sf::RectangleShape* mShape;
 	sf::Texture* mTexture;
 };

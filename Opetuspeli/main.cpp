@@ -4,7 +4,6 @@
 #include "GameObject.h"
 #include "RenderSystem.h"
 #include "PhysicsSystem.h"
-#include "TransformComponentFactory.h"
 #include "RenderComponentFactory.h"
 #include "PhysicsComponentFactory.h"
 
@@ -22,29 +21,24 @@
 using namespace std;
 using namespace sf;
 
-static float pulse(float x)
-{
-	return 0.5*(1 + sin(2 * 3.14159 * x));
-}
-
 int main()
 {
 	//window
 	const int windowWidth = 1024;
 	const int windowHeight = 720;
 	RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "PhysicsGame", Style::Close);
-	//window.setFramerateLimit(60u);
+	window.setFramerateLimit(60u);
 
 	//box2D
-	b2Vec2 gravity(0.0, -1.0);
+	b2Vec2 gravity(0.0, -0.1f);
 	b2World world(gravity);
 	
 
 	//systems
-	RenderSystem renderSystem = RenderSystem(&window, 30.0f);
-	PhysicsSystem physicsSystem = PhysicsSystem(&world, windowWidth, windowHeight);
+	float scale = 100.0f;
+	RenderSystem renderSystem = RenderSystem(&window, scale);
+	PhysicsSystem physicsSystem = PhysicsSystem(&world, windowWidth / scale, windowHeight / scale);
 	RenderComponentFactory renderFactory;
-	TransformComponentFactory transformFactory;
 	PhysicsComponentFactory physicsFactory(&world);
 
 	srand(time(NULL));
@@ -52,11 +46,12 @@ int main()
 	using GoIt = vector<GameObject*>::iterator;
 	for (int i = 0; i < 20; i++)
 	{
+		float x = (250 + rand() % (windowWidth - 500)) / scale;
+		float y = (windowHeight - rand() % 200) / scale;
+
 		GameObject* go = new GameObject;
-		go->add(renderFactory.make("koala.png"));
-		//go->add(transformFactory.make(rand() % windowWidth, rand() % windowHeight));
-		go->add(physicsFactory.make(rand() % windowWidth, windowHeight - rand() % 100, 3, 3,
-			0, 0, (rand() % 1000 + 1) / 1000.0f));
+		go->add(renderFactory.make("koala.png", true));
+		go->add(physicsFactory.make(x, y, 1.0f, 1.0f, 0, 0, 0.1f));
 		gameObjects.push_back(go);
 	}
 
@@ -76,7 +71,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-        window.clear();
+        window.clear(Color::White);
 
 		for (GoIt i = gameObjects.begin(); i != gameObjects.end(); i++)
 		{

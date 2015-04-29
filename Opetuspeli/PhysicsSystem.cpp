@@ -1,5 +1,4 @@
 #include "PhysicsSystem.h"
-#include "TransformComponent.h"
 #include "PhysicsComponent.h"
 
 #include "SFML\Graphics.hpp"
@@ -16,7 +15,7 @@ PhysicsSystem::PhysicsSystem(b2World* world, int windowWidth, int windowHeight)
 	mGround = mWorld->CreateBody(&groundBodyDef);
 
 	b2PolygonShape groundShape;
-	groundShape.SetAsBox(windowWidth, 50.0f);
+	groundShape.SetAsBox(windowWidth, 0.0f);
 	b2FixtureDef groundFixtureDef;
 	groundFixtureDef.density = 0.0f;
 	groundFixtureDef.shape = &groundShape;

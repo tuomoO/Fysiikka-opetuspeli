@@ -4,16 +4,17 @@ using namespace sf;
 
 RenderComponent::RenderComponent()
 {
-	mShape = RectangleShape();
+	mShape = nullptr;
 	mTexture = nullptr;
 }
 
 RenderComponent::~RenderComponent()
 {
 	delete mTexture;
+	delete mShape;
 }
 
 RectangleShape* RenderComponent::getDrawable()
 {
-	return &mShape;
+	return mShape;
 }

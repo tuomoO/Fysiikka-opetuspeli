@@ -143,8 +143,6 @@
     <ClCompile Include="RenderComponentFactory.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="SceneSys.cpp" />
-    <ClCompile Include="TransformComponent.cpp" />
-    <ClCompile Include="TransformComponentFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Box2D\Box2D.h" />
@@ -204,8 +202,6 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="SceneParent.h" />
     <ClInclude Include="SceneSys.h" />
-    <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="TransformComponentFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
