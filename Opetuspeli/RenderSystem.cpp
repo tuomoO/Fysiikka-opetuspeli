@@ -28,7 +28,8 @@ void RenderSystem::draw(GameObject* gameObject)
 			shape.setSize(1.02f * mScale * physics->getSize());
 			shape.setOrigin(shape.getSize() * 0.5f);
 
-			shape.setRotation(physics->getBody()->GetAngle() * 180 / b2_pi);
+			// positive direction is opposite in Box2D
+			shape.setRotation(-1.0f * physics->getBody()->GetAngle() * 180 / b2_pi);
 		}
 		mWindow->draw(shape);
 	}

@@ -8,9 +8,9 @@ public:
 	RenderComponentFactory();
 	~RenderComponentFactory();
 
-	RenderComponent* make(bool centerOrigin = true);
-	RenderComponent* make(std::string texturePath, bool centerOrigin = true);
+	RenderComponent* make();
+	RenderComponent* make(std::string texturePath);
 
 private:
-	RenderComponent* setShape(bool centerOrigin);
+	RenderComponent* setShape();
 };

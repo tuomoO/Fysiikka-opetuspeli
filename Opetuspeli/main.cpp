@@ -27,7 +27,7 @@ int main()
 	const int windowWidth = 1024;
 	const int windowHeight = 720;
 	RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "PhysicsGame", Style::Close);
-	window.setFramerateLimit(60u);
+	//window.setFramerateLimit(60u);
 
 	//box2D
 	b2Vec2 gravity(0.0, -0.1f);
@@ -35,7 +35,7 @@ int main()
 	
 
 	//systems
-	float scale = 100.0f;
+	float scale = 75.0f;
 	RenderSystem renderSystem = RenderSystem(&window, scale);
 	PhysicsSystem physicsSystem = PhysicsSystem(&world, windowWidth / scale, windowHeight / scale);
 	RenderComponentFactory renderFactory;
@@ -44,16 +44,21 @@ int main()
 	srand(time(NULL));
 	vector<GameObject*> gameObjects;
 	using GoIt = vector<GameObject*>::iterator;
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		float x = (250 + rand() % (windowWidth - 500)) / scale;
 		float y = (windowHeight - rand() % 200) / scale;
 
 		GameObject* go = new GameObject;
-		go->add(renderFactory.make("koala.png", true));
+		go->add(renderFactory.make("koala.png"));
 		go->add(physicsFactory.make(x, y, 1.0f, 1.0f, 0, 0, 0.1f));
 		gameObjects.push_back(go);
 	}
+	GameObject* ground = new GameObject();
+	ground->add(renderFactory.make());
+	ground->add(physicsFactory.make(windowWidth / scale / 2.0f, 2.0f, windowWidth / scale / 2.0f, 1.0f,
+		0, 0, 0.1f, b2BodyType::b2_staticBody));
+	gameObjects.push_back(ground);
 
 	//time
 	LARGE_INTEGER startTime, endTime, frequency, milliSeconds;

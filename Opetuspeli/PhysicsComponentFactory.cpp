@@ -11,11 +11,11 @@ PhysicsComponentFactory::~PhysicsComponentFactory()
 {
 }
 
-PhysicsComponent* PhysicsComponentFactory::make(float posX, float posY, float sizeX, float sizeY, float velX, float velY, float mass)
+PhysicsComponent* PhysicsComponentFactory::make(float posX, float posY, float sizeX, float sizeY,
+	float velX, float velY, float mass, b2BodyType type)
 {
 	b2BodyDef bodyDef;
 	bodyDef.position = b2Vec2(posX, posY);
-	bodyDef.type = b2_dynamicBody;
-	//b2Body* body = mWorld->CreateBody(&bodyDef);
+	bodyDef.type = type;
 	return new PhysicsComponent(mWorld->CreateBody(&bodyDef), sizeX, sizeY, velX, velY, mass);
 }
