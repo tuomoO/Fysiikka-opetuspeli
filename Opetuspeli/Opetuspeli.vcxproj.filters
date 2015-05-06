@@ -28,6 +28,12 @@
     <Filter Include="Source\System">
       <UniqueIdentifier>{b98c384e-8faa-4209-9f06-70dcc69b0c7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Scene">
+      <UniqueIdentifier>{993c540f-a834-4db1-8041-2a5adee904c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{c0ffe369-c244-4097-90c4-163d0d9c860b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -195,7 +201,21 @@
     <ClCompile Include="RenderSystem.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSys.cpp" />
+    <ClCompile Include="SystemManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Include\System</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneParent.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSys.cpp">
+      <Filter>Include\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -363,9 +383,20 @@
     <ClInclude Include="RenderSystem.h">
       <Filter>Include\System</Filter>
     </ClInclude>
-    <ClInclude Include="SceneSys.h" />
+    <ClInclude Include="SystemManager.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Source\System</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Include\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSys.h">
+      <Filter>Include</Filter>
+    </ClInclude>
     <ClInclude Include="SceneParent.h">
-      <Filter>Source</Filter>
+      <Filter>Include\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

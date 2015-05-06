@@ -2,20 +2,12 @@
 std::vector<SceneParent*> SceneSys::currentScenes;
 bool SceneSys::sceneChanged;
 
-void SceneSys::Draw(sf::RenderWindow &window)
-{
-	window.clear(sf::Color::Black); // Clear window.
-	for (std::vector<SceneParent*>::iterator it = currentScenes.begin(); it != currentScenes.end(); it++)
-		(*it)->Draw(window); // Draw scenes in order.
-	window.display(); // Render scenes on screen.
-}
-
-void SceneSys::Update(const float deltaTime, sf::Event &events)
+void SceneSys::update(const float deltaTime, sf::Event &events)
 {
 	for (std::vector<SceneParent*>::iterator it = currentScenes.begin(); it != currentScenes.end(); it++)
 	{
-		if (!(*it)->GetPaused()) // Update scene if it's not paused.
-			(*it)->Update(deltaTime, events);
+		if (!(*it)->getPaused()) // Update scene if it's not paused.
+			(*it)->update(deltaTime, events);
 		if (sceneChanged) // If amount of scenes changes during update the iterator breaks.
 		{
 			sceneChanged = false;
@@ -24,19 +16,19 @@ void SceneSys::Update(const float deltaTime, sf::Event &events)
 	}
 }
 
-void SceneSys::OpenScene(SceneParent *newScene)
+void SceneSys::openScene(SceneParent *newScene)
 {
 	currentScenes.push_back(newScene);
 	sceneChanged = true;
 }
 
-void SceneSys::ChangeScene(SceneParent *newScene)
+void SceneSys::changeScene(SceneParent *newScene)
 {
-	CleanScenes();
-	OpenScene(newScene);
+	cleanScenes();
+	openScene(newScene);
 }
 
-void SceneSys::CleanScenes()
+void SceneSys::cleanScenes()
 {
 	if (currentScenes.size() > 0)
 	{
@@ -46,7 +38,7 @@ void SceneSys::CleanScenes()
 	currentScenes.clear();
 }
 
-void SceneSys::CloseCurrentScene()
+void SceneSys::closeCurrentScene()
 {
 	if (currentScenes.size() > 0)
 	{
@@ -54,4 +46,12 @@ void SceneSys::CloseCurrentScene()
 		currentScenes.pop_back();
 		sceneChanged = true;
 	}
+}
+
+SceneParent* SceneSys::getCurrentScene()
+{
+	if (currentScenes.empty())
+		return nullptr;
+	else
+		return *currentScenes.begin();
 }

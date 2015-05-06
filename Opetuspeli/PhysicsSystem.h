@@ -1,20 +1,21 @@
 #pragma once
 
-#include "GameObject.h"
+#include "PhysicsComponent.h"
+#include "System.h"
 
 #include "Box2D.h"
 
-class PhysicsSystem
+class PhysicsSystem : public System
 {
 public:
 	PhysicsSystem(b2World* world, int windowWidth, int windowHeight);
 	~PhysicsSystem();
 
-	void update(GameObject* obj);
+	void update(float dt, GameObject* obj);
 	void stepWorld(float dt);
 
 private:
-	void checkWindowCollision(b2Vec2& position);
+	bool checkWindowCollision(PhysicsComponent* physics);
 
 	b2World* mWorld;
 	b2Vec2 mWindowSize;

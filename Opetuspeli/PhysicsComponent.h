@@ -15,7 +15,7 @@ public:
 	b2Body* getBody() { return mBody; };
 	b2PolygonShape* getShape() { return &mShape; };
 	sf::Vector2f getSize() { return mSize; };
-
+	
 private:
 	b2Body* mBody;
 	b2PolygonShape mShape;

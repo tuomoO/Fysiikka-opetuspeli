@@ -1,17 +1,18 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "System.h"
 #include "RenderComponent.h"
 #include "PhysicsComponent.h"
-#include "GameObject.h"
+#include <SFML/Graphics.hpp>
 
-class RenderSystem
+
+class RenderSystem : public System
 {
 public:
 	RenderSystem(sf::RenderWindow* window, float scale);
 	~RenderSystem();
 
-	void draw(GameObject* gameObject);
+	void update(float dt, GameObject* gameObject);
 	void swapBuffers();
 
 	sf::Vector2f flipY(b2Vec2 original);

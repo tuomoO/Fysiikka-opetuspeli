@@ -15,11 +15,14 @@ public:
 
 	void add(Component* component);
 	template<typename T> T* getComponent();
+	void markForDelete() { mIsDeleted = true; };
+	bool isDeleted(){ return mIsDeleted; };
 
 private:
 	using ComponentMap = std::unordered_map < const std::type_info*, Component* > ;
 	using CompIt = ComponentMap::iterator;
 	ComponentMap mComponents;
+	bool mIsDeleted;
 };
 
 template<typename T>

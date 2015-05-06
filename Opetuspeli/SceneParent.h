@@ -1,21 +1,27 @@
 #pragma once
+
+#include "GameObject.h"
+
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+
+#include <vector>
 
 class SceneParent
 {
 public:
 	/// Set paused status.
-	void SetPaused(bool Paused) { paused = Paused; }
-	bool GetPaused() { return paused; }
+	void setPaused(bool Paused) { paused = Paused; }
+	bool getPaused() { return paused; }
 
 	///  Should contain everything that needs to be updated.
-	virtual void Update(float deltaTime, sf::Event &events) {};
+	virtual void update(float deltaTime, sf::Event &events) {};
 
-	/// Should contain everything that needs to be drawn.
-	virtual void Draw(sf::RenderWindow &window) {};
+	~SceneParent(); // Deconstructor is scene dependant.
 
-	virtual ~SceneParent() {}; // Deconstructor is scene dependant.
+	int getGameObjectCount();
+
+	std::vector<GameObject*>* getGameObjects();
 
 protected:
 	/// We shouldn't ever need to create SceneParent directly.
@@ -23,4 +29,6 @@ protected:
 	SceneParent(bool paused) : paused(paused) {};
 
 	bool paused; // Update is skipped for scenes that are paused.
+
+	std::vector<GameObject*> mGameObjects;
 };

@@ -6,6 +6,9 @@
 #include "PhysicsSystem.h"
 #include "RenderComponentFactory.h"
 #include "PhysicsComponentFactory.h"
+#include "TestScene.h"
+#include "SystemManager.h"
+#include "SceneSys.h"
 
 #include "Box2D.h"
 
@@ -23,46 +26,38 @@ using namespace sf;
 
 int main()
 {
+	srand(time(NULL));
+
 	//window
+	string message = "Opetuspeli";
 	const int windowWidth = 1024;
 	const int windowHeight = 720;
-	RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "PhysicsGame", Style::Close);
+	RenderWindow window(sf::VideoMode(windowWidth, windowHeight), message, Style::Close);
 	//window.setFramerateLimit(60u);
 
 	//box2D
-	b2Vec2 gravity(0.0, -0.1f);
-	b2World world(gravity);
-	
+	b2Vec2 gravity(0.0, -9.8f);
+	b2World* world = new b2World(gravity);
 
 	//systems
 	float scale = 75.0f;
-	RenderSystem renderSystem = RenderSystem(&window, scale);
-	PhysicsSystem physicsSystem = PhysicsSystem(&world, windowWidth / scale, windowHeight / scale);
-	RenderComponentFactory renderFactory;
-	PhysicsComponentFactory physicsFactory(&world);
+	SystemManager systemManager;
+	systemManager.add(new RenderSystem(&window, scale));
+	systemManager.add(new PhysicsSystem(world, windowWidth / scale, windowHeight / scale));
 
-	srand(time(NULL));
-	vector<GameObject*> gameObjects;
-	using GoIt = vector<GameObject*>::iterator;
-	for (int i = 0; i < 30; i++)
-	{
-		float x = (250 + rand() % (windowWidth - 500)) / scale;
-		float y = (windowHeight - rand() % 200) / scale;
-
-		GameObject* go = new GameObject;
-		go->add(renderFactory.make("koala.png"));
-		go->add(physicsFactory.make(x, y, 1.0f, 1.0f, 0, 0, 0.1f));
-		gameObjects.push_back(go);
-	}
-	GameObject* ground = new GameObject();
-	ground->add(renderFactory.make());
-	ground->add(physicsFactory.make(windowWidth / scale / 2.0f, 2.0f, windowWidth / scale / 2.0f, 1.0f,
-		0, 0, 0.1f, b2BodyType::b2_staticBody));
-	gameObjects.push_back(ground);
+	//scene
+	SceneSys sceneSys;
+	sceneSys.openScene(new TestScene(scale, world, windowWidth, windowHeight));
+	
+	//input
+	bool deleteWasDown = false;
+	bool spaceWasDown = false;
 
 	//time
 	LARGE_INTEGER startTime, endTime, frequency, milliSeconds;
+	float fpsTimer = 0;
 	float dt = 1.0f / 60;
+	int fps = 60;
 
     while (window.isOpen())
     {
@@ -78,32 +73,56 @@ int main()
         }
         window.clear(Color::White);
 
-		for (GoIt i = gameObjects.begin(); i != gameObjects.end(); i++)
+		//input
+		if (Keyboard::isKeyPressed(Keyboard::Space))
 		{
-			physicsSystem.stepWorld(dt);
-			//physicsSystem.update(*i);
-			renderSystem.draw(*i);
+			sceneSys.getCurrentScene()->update(dt, event);
 		}
-		renderSystem.swapBuffers();
+			/*
+			if (!spaceWasDown)
+				sceneSys.getCurrentScene()->update(dt, event);
+			spaceWasDown = true;
+		}
+		else
+			spaceWasDown = false;
+			*/
+
+		if (Keyboard::isKeyPressed(Keyboard::Delete))
+		{
+			if (!deleteWasDown)
+			{
+				delete world;
+				world = new b2World(gravity);
+				sceneSys.changeScene(new TestScene(scale, world, windowWidth, windowHeight));
+			}
+			deleteWasDown = true;
+		}
+		else
+			deleteWasDown = false;
+
+		world->Step(dt / 1000.0f, 8, 3);
+		systemManager.update(dt, sceneSys.getCurrentScene());
+		window.display();
 
 		//time
 		QueryPerformanceCounter(&endTime);
 		milliSeconds.QuadPart = endTime.QuadPart - startTime.QuadPart;
 		milliSeconds.QuadPart *= 1000;
 		dt = milliSeconds.QuadPart / static_cast<float>(frequency.QuadPart);
-		stringstream deltaStream;
-		stringstream framesStream;
-		deltaStream.precision(2);
-		deltaStream << setfill('0') << setw(5) << dt;
-		framesStream << setfill('0') << setw(6) << (1.0f / dt) * 1000;
-		window.setTitle("Delta time(ms): " + deltaStream.str() + " | fps: " + framesStream.str());
-    }
+		fpsTimer += dt;
+		if (fpsTimer > 100)
+		{
+			fps = static_cast<int>(0.8f * fps + 0.2f * ((1.0f / dt) * 1000));
+			stringstream framesStream;
+			framesStream << setfill('0') << setw(4) << fps;
+			stringstream objStream;
+			objStream << setfill('0') << setw(3) << sceneSys.getCurrentScene()->getGameObjectCount();
 
-	for (GoIt i = gameObjects.begin(); i != gameObjects.end(); i++)
-	{
-		delete *i;
+			window.setTitle("[fps: " + framesStream.str() + "][GameObjects: " + objStream.str() + "] " + message);
+			fpsTimer = 0;
+		}
 	}
-
+	delete world;
     return 0;
 }
 

@@ -142,7 +142,11 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="RenderComponentFactory.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
+    <ClCompile Include="SceneParent.cpp" />
     <ClCompile Include="SceneSys.cpp" />
+    <ClCompile Include="System.cpp" />
+    <ClCompile Include="SystemManager.cpp" />
+    <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Box2D\Box2D.h" />
@@ -202,6 +206,9 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="SceneParent.h" />
     <ClInclude Include="SceneSys.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="SystemManager.h" />
+    <ClInclude Include="TestScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

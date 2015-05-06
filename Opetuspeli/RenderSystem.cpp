@@ -14,7 +14,7 @@ RenderSystem::~RenderSystem()
 }
 
 
-void RenderSystem::draw(GameObject* gameObject)
+void RenderSystem::update(float dt, GameObject* gameObject)
 {
 	RenderComponent* render = gameObject->getComponent<RenderComponent>();
 	if (render != nullptr)
