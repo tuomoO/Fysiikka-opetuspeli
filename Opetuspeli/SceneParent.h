@@ -23,6 +23,8 @@ public:
 
 	std::vector<GameObject*>* getGameObjects();
 
+	void remove(GameObject* obj);
+
 protected:
 	/// We shouldn't ever need to create SceneParent directly.
 	SceneParent() : paused(false) {};

@@ -9,6 +9,7 @@
 #include "TestScene.h"
 #include "SystemManager.h"
 #include "SceneSys.h"
+#include "DeleteSystem.h"
 
 #include "Box2D.h"
 
@@ -36,18 +37,21 @@ int main()
 	//window.setFramerateLimit(60u);
 
 	//box2D
+	float scale = 75.0f;
 	b2Vec2 gravity(0.0, -9.8f);
 	b2World* world = new b2World(gravity);
-
-	//systems
-	float scale = 75.0f;
-	SystemManager systemManager;
-	systemManager.add(new RenderSystem(&window, scale));
-	systemManager.add(new PhysicsSystem(world, windowWidth / scale, windowHeight / scale));
 
 	//scene
 	SceneSys sceneSys;
 	sceneSys.openScene(new TestScene(scale, world, windowWidth, windowHeight));
+
+	//systems
+	SystemManager systemManager;
+	systemManager.add(new RenderSystem(&window, scale));
+	systemManager.add(new PhysicsSystem(world, windowWidth / scale, windowHeight / scale));
+	DeleteSystem* deleteSystem = new DeleteSystem(world, sceneSys.getCurrentScene());
+	systemManager.add(deleteSystem);
+	
 	
 	//input
 	bool deleteWasDown = false;
@@ -100,8 +104,8 @@ int main()
 		else
 			deleteWasDown = false;
 
-		world->Step(dt / 1000.0f, 8, 3);
 		systemManager.update(dt, sceneSys.getCurrentScene());
+		world->Step(dt / 1000.0f, 8, 3);
 		window.display();
 
 		//time

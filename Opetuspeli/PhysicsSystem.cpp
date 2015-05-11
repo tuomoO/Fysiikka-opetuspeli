@@ -21,10 +21,8 @@ void PhysicsSystem::update(float dt, GameObject* obj)
 	PhysicsComponent* physics = obj->getComponent<PhysicsComponent>();
 	if (physics != nullptr)
 	{
-		/*
 		if (checkWindowCollision(physics))
 			obj->markForDelete();
-			*/
 	}
 }
 
@@ -37,7 +35,7 @@ bool PhysicsSystem::checkWindowCollision(PhysicsComponent* physics)
 {
 	if (physics->getBody()->GetPosition().y < 0)
 	{
-		mWorld->DestroyBody(physics->getBody());
+		//mWorld->DestroyBody(physics->getBody());
 		return true;
 	}
 	return false;

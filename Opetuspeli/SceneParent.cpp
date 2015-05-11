@@ -1,4 +1,5 @@
 #include "SceneParent.h"
+#include <algorithm>
 
 using namespace std;
 using Ite = vector<GameObject*>::iterator;
@@ -20,4 +21,11 @@ int SceneParent::getGameObjectCount()
 vector<GameObject*>* SceneParent::getGameObjects()
 {
 	return &mGameObjects;
+}
+
+void SceneParent::remove(GameObject* obj)
+{
+	Ite i = find(mGameObjects.begin(), mGameObjects.end(), obj);
+	if (i != mGameObjects.end())
+		mGameObjects.erase(i);
 }

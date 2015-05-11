@@ -216,6 +216,9 @@
     <ClCompile Include="SceneSys.cpp">
       <Filter>Include\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="DeleteSystem.cpp">
+      <Filter>Source\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -397,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="SceneParent.h">
       <Filter>Include\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteSystem.h">
+      <Filter>Include\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
