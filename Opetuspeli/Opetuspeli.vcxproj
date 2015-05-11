@@ -135,6 +135,7 @@
     <ClCompile Include="..\Box2D\Box2D\Rope\b2Rope.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DeleteSystem.cpp" />
+    <ClCompile Include="FrictionScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="..\Box2D\Box2D\Rope\b2Rope.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DeleteSystem.h" />
+    <ClInclude Include="FrictionScene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsComponentFactory.h" />

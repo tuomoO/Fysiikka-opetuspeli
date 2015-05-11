@@ -10,6 +10,7 @@
 #include "SystemManager.h"
 #include "SceneSys.h"
 #include "DeleteSystem.h"
+#include "FrictionScene.h"
 
 #include "Box2D.h"
 
@@ -54,8 +55,9 @@ int main()
 	
 	
 	//input
-	bool deleteWasDown = false;
 	bool spaceWasDown = false;
+	bool oneWasDown = false;
+	bool twoWasDown = false;
 
 	//time
 	LARGE_INTEGER startTime, endTime, frequency, milliSeconds;
@@ -91,18 +93,31 @@ int main()
 			spaceWasDown = false;
 			*/
 
-		if (Keyboard::isKeyPressed(Keyboard::Delete))
+		if (Keyboard::isKeyPressed(Keyboard::Num1))
 		{
-			if (!deleteWasDown)
+			if (!oneWasDown)
 			{
 				delete world;
 				world = new b2World(gravity);
 				sceneSys.changeScene(new TestScene(scale, world, windowWidth, windowHeight));
 			}
-			deleteWasDown = true;
+			oneWasDown = true;
 		}
 		else
-			deleteWasDown = false;
+			oneWasDown = false;
+
+		if (Keyboard::isKeyPressed(Keyboard::Num2))
+		{
+			if (!twoWasDown)
+			{
+				delete world;
+				world = new b2World(gravity);
+				sceneSys.changeScene(new FrictionScene(scale, world, windowWidth, windowHeight));
+			}
+			twoWasDown = true;
+		}
+		else
+			twoWasDown = false;
 
 		systemManager.update(dt, sceneSys.getCurrentScene());
 		world->Step(dt / 1000.0f, 8, 3);

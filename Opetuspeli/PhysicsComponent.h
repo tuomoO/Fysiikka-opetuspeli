@@ -7,7 +7,8 @@ class PhysicsComponent : public Component
 {
 	friend class PhysicsComponentFactory;
 public:
-	PhysicsComponent(b2Body* body, float sizeX, float sizeY, float velX, float velY, float mass);
+	PhysicsComponent(b2Body* body, float sizeX, float sizeY,
+		float velX, float velY, float mass);
 	~PhysicsComponent();
 
 	b2Vec2 getVelocity() { return mVelocity; };

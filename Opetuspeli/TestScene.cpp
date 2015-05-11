@@ -17,7 +17,7 @@ TestScene::TestScene(float scale, b2World* world, int windowWidth, int windowHei
 	GameObject* ground = new GameObject();
 	ground->add(renderFactory.make());
 	ground->add(mPhysicsFactory.make(windowWidth / mScale / 2.0f, 2.0f, windowWidth / mScale / 2.0f, 1.0f,
-		0, 0, 0.1f, b2BodyType::b2_staticBody));
+		0, 0, 0.1f, 0.0f, b2BodyType::b2_staticBody));
 	mGameObjects.push_back(ground);
 }
 
