@@ -11,12 +11,11 @@ public:
 	PhysicsSystem(b2World* world, int windowWidth, int windowHeight);
 	~PhysicsSystem();
 
-	void update(float dt, GameObject* obj);
+	void update(float dt, std::vector<GameObject*>* objects);
 	void stepWorld(float dt);
 
 private:
-	bool checkWindowCollision(PhysicsComponent* physics);
-
+	
 	b2World* mWorld;
 	b2Vec2 mWindowSize;
 };

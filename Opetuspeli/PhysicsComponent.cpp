@@ -2,15 +2,13 @@
 
 using namespace sf;
 
-PhysicsComponent::PhysicsComponent(b2Body* body, float sizeX, float sizeY,
-	float velX, float velY, float mass)
-	:mBody(body), mVelocity(velX, velY), mMass(mass), mSize(sizeX, sizeY)
+PhysicsComponent::PhysicsComponent(b2Body* body, float sizeX, float sizeY, float density, float friction)
+	:mBody(body), mSize(sizeX, sizeY), mDensity(density), mFriction(friction)
 {
 	mShape.SetAsBox(sizeX / 2.0f, sizeY / 2.0f);
 	b2FixtureDef fixtureDef;
-
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.25f;
+	fixtureDef.density = density;
+	fixtureDef.friction = friction;
 	fixtureDef.shape = &mShape;
 	mBody->CreateFixture(&fixtureDef);
 }

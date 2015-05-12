@@ -2,7 +2,6 @@
 
 using namespace std;
 using SIte = vector<System*>::iterator;
-using GIte = vector<GameObject*>::iterator;
 
 SystemManager::SystemManager()
 {
@@ -26,12 +25,8 @@ void SystemManager::add(System* system)
 
 void SystemManager::update(float dt, Scene* scene)
 {
-	vector<GameObject*>* objects = scene->getGameObjects();
 	for (SIte i = mSystems.begin(); i != mSystems.end(); i++)
 	{
-		for (GIte j = objects->begin(); j != objects->end(); j++)
-		{
-			(*i)->update(dt, (*j));
-		}
+		(*i)->update(dt, scene->getGameObjects());
 	}
 }

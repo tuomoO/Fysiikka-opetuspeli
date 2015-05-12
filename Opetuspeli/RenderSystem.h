@@ -12,7 +12,7 @@ public:
 	RenderSystem(sf::RenderWindow* window, float scale);
 	~RenderSystem();
 
-	void update(float dt, GameObject* gameObject);
+	void update(float dt, std::vector<GameObject*>* objects);
 	void swapBuffers();
 
 	sf::Vector2f flipY(b2Vec2 original);

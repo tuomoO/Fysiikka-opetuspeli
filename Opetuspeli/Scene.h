@@ -16,7 +16,7 @@ public:
 	bool getPaused() { return paused; }
 
 	///  Should contain everything that needs to be updated.
-	virtual void update(float deltaTime, Input* input) {};
+	virtual void update(float deltaTime, Input* input, sf::RenderWindow* window) {};
 
 	~Scene(); // Deconstructor is scene dependant.
 

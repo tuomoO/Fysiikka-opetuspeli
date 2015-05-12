@@ -7,12 +7,11 @@ class PhysicsComponent : public Component
 {
 	friend class PhysicsComponentFactory;
 public:
-	PhysicsComponent(b2Body* body, float sizeX, float sizeY,
-		float velX, float velY, float mass);
+	PhysicsComponent(b2Body* body, float sizeX, float sizeY, float Density, float friction);
 	~PhysicsComponent();
 
-	b2Vec2 getVelocity() { return mVelocity; };
-	float getMass() { return mMass; };
+	float getMass() { return mDensity * mSize.x * mSize.y; };
+	float getFriction() { return mFriction; };
 	b2Body* getBody() { return mBody; };
 	b2PolygonShape* getShape() { return &mShape; };
 	sf::Vector2f getSize() { return mSize; };
@@ -20,8 +19,8 @@ public:
 private:
 	b2Body* mBody;
 	b2PolygonShape mShape;
-	b2Vec2 mVelocity;
-	float mMass;
+	float mFriction;
+	float mDensity;
 	sf::Vector2f mSize;
 };
 

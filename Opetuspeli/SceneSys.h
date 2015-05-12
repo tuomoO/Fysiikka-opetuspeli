@@ -9,7 +9,7 @@ public:
 	//static void Draw(sf::RenderWindow &window);
 
 	/// Update all scenes that are not paused.
-	static void update(float deltaTime, Input* input);
+	static void update(float deltaTime, Input* input, sf::RenderWindow* window);
 
 	/// Open new scene over all previous scenes.
 	static void openScene(Scene *newScene);

@@ -134,7 +134,6 @@
     <ClCompile Include="..\Box2D\Box2D\Dynamics\Joints\b2WheelJoint.cpp" />
     <ClCompile Include="..\Box2D\Box2D\Rope\b2Rope.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="DeleteSystem.cpp" />
     <ClCompile Include="FrictionScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -200,7 +199,6 @@
     <ClInclude Include="..\Box2D\Box2D\Dynamics\Joints\b2WheelJoint.h" />
     <ClInclude Include="..\Box2D\Box2D\Rope\b2Rope.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="DeleteSystem.h" />
     <ClInclude Include="FrictionScene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Input.h" />

@@ -9,7 +9,6 @@
 #include "TestScene.h"
 #include "SystemManager.h"
 #include "SceneSys.h"
-#include "DeleteSystem.h"
 #include "FrictionScene.h"
 #include "Input.h"
 
@@ -25,6 +24,8 @@
 
 using namespace std;
 using namespace sf;
+
+const float PI = 3.14159;
 
 int main()
 {
@@ -51,8 +52,6 @@ int main()
 	SystemManager systemManager;
 	systemManager.add(new RenderSystem(&window, scale));
 	systemManager.add(new PhysicsSystem(world, windowWidth / scale, windowHeight / scale));
-	DeleteSystem* deleteSystem = new DeleteSystem(world, sceneSys.getCurrentScene());
-	systemManager.add(deleteSystem);
 
 	//time
 	LARGE_INTEGER startTime, endTime, frequency, milliSeconds;
@@ -75,7 +74,7 @@ int main()
         window.clear(Color::White);
 
 		//scene
-		sceneSys.getCurrentScene()->update(dt, &input);
+		sceneSys.getCurrentScene()->update(dt, &input, &window);
 
 		//input
 		if (input.keyPress(Keyboard::Num1))
@@ -88,8 +87,22 @@ int main()
 		{
 			delete world;
 			world = new b2World(gravity);
-			sceneSys.changeScene(new FrictionScene(scale, world, windowWidth, windowHeight));
+			sceneSys.changeScene(new FrictionScene(-0.12f * PI, scale, world, windowWidth, windowHeight));
 		}
+		if (input.keyPress(Keyboard::Num3))
+		{
+			delete world;
+			world = new b2World(gravity);
+			sceneSys.changeScene(new FrictionScene(-0.16f * PI, scale, world, windowWidth, windowHeight));
+		}
+		if (input.keyPress(Keyboard::Num4))
+		{
+			delete world;
+			world = new b2World(gravity);
+			sceneSys.changeScene(new FrictionScene(-0.19f * PI, scale, world, windowWidth, windowHeight));
+		}
+
+
 		input.update();
 		
 		systemManager.update(dt, sceneSys.getCurrentScene());

@@ -8,7 +8,6 @@ TestScene::TestScene(float scale, b2World* world, int windowWidth, int windowHei
 	: mScale(scale), mPhysicsFactory(world), mWindowSize(windowWidth, windowHeight)
 {
 	RenderComponentFactory renderFactory;
-	using GoIt = vector<GameObject*>::iterator;
 	for (int i = 0; i < 30; i++)
 	{
 		float x = (250 + rand() % (windowWidth - 500)) / scale;
@@ -17,8 +16,9 @@ TestScene::TestScene(float scale, b2World* world, int windowWidth, int windowHei
 	}
 	GameObject* ground = new GameObject();
 	ground->add(renderFactory.make());
-	ground->add(mPhysicsFactory.make(windowWidth / mScale / 2.0f, 2.0f, windowWidth / mScale / 2.0f, 1.0f,
-		0, 0, 0.1f, 0.0f, b2BodyType::b2_staticBody));
+	ground->add(mPhysicsFactory.make(b2Vec2(windowWidth / mScale / 2.0f, 2.0f),
+		windowWidth / mScale / 2.0f, 1.0f,
+		1.0f, 0.25f, 0.0f, b2BodyType::b2_staticBody));
 	mGameObjects.push_back(ground);
 }
 
@@ -27,7 +27,7 @@ TestScene::~TestScene()
 {
 }
 
-void TestScene::update(float deltaTime, Input* input)
+void TestScene::update(float deltaTime, Input* input, RenderWindow* window)
 {
 	if (input->keyDown(Keyboard::Space))
 	{
@@ -43,6 +43,6 @@ void TestScene::addGameObject(float x, float y)
 
 	GameObject* go = new GameObject;
 	go->add(renderFactory.make("koala.png"));
-	go->add(mPhysicsFactory.make(x, y, 1.0f, 1.0f, 0, 0, 0.1f));
+	go->add(mPhysicsFactory.make(b2Vec2(x, y), 1.0f, 1.0f, 1.0f, 0.25f));
 	mGameObjects.push_back(go);
 }

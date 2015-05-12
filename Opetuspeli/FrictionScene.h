@@ -10,15 +10,18 @@
 class FrictionScene : public Scene
 {
 public:
-	FrictionScene(float scale, b2World* world, int windowWidth, int windowHeight);
+	FrictionScene(float angle, float scale, b2World* world, int windowWidth, int windowHeight);
 	~FrictionScene();
 
-	void update(float deltaTime, Input* input);
+	void update(float deltaTime, Input* input, sf::RenderWindow* window);
 
 private:
 	float mScale;
 	PhysicsComponentFactory mPhysicsFactory;
 	sf::Vector2i mWindowSize;
-
+	bool mSetupState;
+	sf::Font* mFont;
+	sf::Text mText;
+	float mFriction;
 };
 

@@ -2,12 +2,12 @@
 std::vector<Scene*> SceneSys::currentScenes;
 bool SceneSys::sceneChanged;
 
-void SceneSys::update(const float deltaTime, Input* input)
+void SceneSys::update(const float deltaTime, Input* input, sf::RenderWindow* window)
 {
 	for (std::vector<Scene*>::iterator it = currentScenes.begin(); it != currentScenes.end(); it++)
 	{
 		if (!(*it)->getPaused()) // Update scene if it's not paused.
-			(*it)->update(deltaTime, input);
+			(*it)->update(deltaTime, input, window);
 		if (sceneChanged) // If amount of scenes changes during update the iterator breaks.
 		{
 			sceneChanged = false;

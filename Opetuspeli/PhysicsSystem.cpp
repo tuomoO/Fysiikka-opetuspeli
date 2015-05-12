@@ -3,6 +3,8 @@
 #include "SFML\Graphics.hpp"
 #include "Box2D\Dynamics\b2World.h"
 
+using namespace std;
+using Ite = vector<GameObject*>::iterator;
 
 PhysicsSystem::PhysicsSystem(b2World* world, int windowWidth, int windowHeight)
 	:mWorld(world), mWindowSize(windowWidth, windowHeight)
@@ -16,27 +18,29 @@ PhysicsSystem::~PhysicsSystem()
 
 }
 
-void PhysicsSystem::update(float dt, GameObject* obj)
+void PhysicsSystem::update(float dt, vector<GameObject*>* objects)
 {
-	PhysicsComponent* physics = obj->getComponent<PhysicsComponent>();
-	if (physics != nullptr)
+	for (Ite i = objects->begin(); i != objects->end();)
 	{
-		if (checkWindowCollision(physics))
-			obj->markForDelete();
+		PhysicsComponent* physics = (*i)->getComponent<PhysicsComponent>();
+		if (physics != nullptr)
+		{
+			if (physics->getBody()->GetPosition().y < 0)
+			{
+				b2Body* body = (*i)->getComponent<PhysicsComponent>()->getBody();
+				if (!mWorld->IsLocked())
+					mWorld->DestroyBody(body);
+				delete (*i);
+				i = objects->erase(i);
+			}
+			else
+				i++;
+		}
 	}
+	
 }
 
 void PhysicsSystem::stepWorld(float dt)
 {
 	mWorld->Step(dt / 1000.0f, 8, 3);
-}
-
-bool PhysicsSystem::checkWindowCollision(PhysicsComponent* physics)
-{
-	if (physics->getBody()->GetPosition().y < 0)
-	{
-		//mWorld->DestroyBody(physics->getBody());
-		return true;
-	}
-	return false;
 }
