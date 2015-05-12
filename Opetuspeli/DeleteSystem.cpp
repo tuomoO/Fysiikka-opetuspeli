@@ -1,7 +1,7 @@
 #include "DeleteSystem.h"
 #include "PhysicsComponent.h"
 
-DeleteSystem::DeleteSystem(b2World* world, SceneParent* scene)
+DeleteSystem::DeleteSystem(b2World* world, Scene* scene)
 	: mWorld(world), mCurrentScene(scene)
 {
 }
@@ -24,7 +24,7 @@ void DeleteSystem::update(float dt, GameObject* obj)
 	*/
 }
 
-void DeleteSystem::setScene(SceneParent* scene)
+void DeleteSystem::setScene(Scene* scene)
 {
 	mCurrentScene = scene;
 }

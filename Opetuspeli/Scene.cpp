@@ -1,10 +1,10 @@
-#include "SceneParent.h"
+#include "Scene.h"
 #include <algorithm>
 
 using namespace std;
 using Ite = vector<GameObject*>::iterator;
 
-SceneParent::~SceneParent()
+Scene::~Scene()
 {
 	for (Ite i = mGameObjects.begin(); i != mGameObjects.end(); i++)
 	{
@@ -13,17 +13,17 @@ SceneParent::~SceneParent()
 	mGameObjects.clear();
 }
 
-int SceneParent::getGameObjectCount()
+int Scene::getGameObjectCount()
 {
 	return mGameObjects.size();
 }
 
-vector<GameObject*>* SceneParent::getGameObjects()
+vector<GameObject*>* Scene::getGameObjects()
 {
 	return &mGameObjects;
 }
 
-void SceneParent::remove(GameObject* obj)
+void Scene::remove(GameObject* obj)
 {
 	Ite i = find(mGameObjects.begin(), mGameObjects.end(), obj);
 	if (i != mGameObjects.end())

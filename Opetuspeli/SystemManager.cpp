@@ -24,7 +24,7 @@ void SystemManager::add(System* system)
 	mSystems.push_back(system);
 }
 
-void SystemManager::update(float dt, SceneParent* scene)
+void SystemManager::update(float dt, Scene* scene)
 {
 	vector<GameObject*>* objects = scene->getGameObjects();
 	for (SIte i = mSystems.begin(); i != mSystems.end(); i++)

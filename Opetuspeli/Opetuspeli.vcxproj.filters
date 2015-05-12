@@ -210,16 +210,21 @@
     <ClCompile Include="TestScene.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="SceneParent.cpp">
-      <Filter>Source\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneSys.cpp">
-      <Filter>Include\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="DeleteSystem.cpp">
       <Filter>Source\System</Filter>
     </ClCompile>
-    <ClCompile Include="FrictionScene.cpp" />
+    <ClCompile Include="FrictionScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Include\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSys.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -399,12 +404,17 @@
     <ClInclude Include="SceneSys.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="SceneParent.h">
-      <Filter>Include\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="DeleteSystem.h">
       <Filter>Include\System</Filter>
     </ClInclude>
-    <ClInclude Include="FrictionScene.h" />
+    <ClInclude Include="Input.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FrictionScene.h">
+      <Filter>Include\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

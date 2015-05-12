@@ -1,13 +1,13 @@
 #include "SceneSys.h"
-std::vector<SceneParent*> SceneSys::currentScenes;
+std::vector<Scene*> SceneSys::currentScenes;
 bool SceneSys::sceneChanged;
 
-void SceneSys::update(const float deltaTime, sf::Event &events)
+void SceneSys::update(const float deltaTime, Input* input)
 {
-	for (std::vector<SceneParent*>::iterator it = currentScenes.begin(); it != currentScenes.end(); it++)
+	for (std::vector<Scene*>::iterator it = currentScenes.begin(); it != currentScenes.end(); it++)
 	{
 		if (!(*it)->getPaused()) // Update scene if it's not paused.
-			(*it)->update(deltaTime, events);
+			(*it)->update(deltaTime, input);
 		if (sceneChanged) // If amount of scenes changes during update the iterator breaks.
 		{
 			sceneChanged = false;
@@ -16,13 +16,13 @@ void SceneSys::update(const float deltaTime, sf::Event &events)
 	}
 }
 
-void SceneSys::openScene(SceneParent *newScene)
+void SceneSys::openScene(Scene* newScene)
 {
 	currentScenes.push_back(newScene);
 	sceneChanged = true;
 }
 
-void SceneSys::changeScene(SceneParent *newScene)
+void SceneSys::changeScene(Scene *newScene)
 {
 	cleanScenes();
 	openScene(newScene);
@@ -32,7 +32,7 @@ void SceneSys::cleanScenes()
 {
 	if (currentScenes.size() > 0)
 	{
-		for (std::vector<SceneParent*>::iterator it = currentScenes.begin(); it != currentScenes.end(); it++)
+		for (std::vector<Scene*>::iterator it = currentScenes.begin(); it != currentScenes.end(); it++)
 			delete (*it); // Delete every scene.
 	}
 	currentScenes.clear();
@@ -48,7 +48,7 @@ void SceneSys::closeCurrentScene()
 	}
 }
 
-SceneParent* SceneSys::getCurrentScene()
+Scene* SceneSys::getCurrentScene()
 {
 	if (currentScenes.empty())
 		return nullptr;

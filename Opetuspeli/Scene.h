@@ -1,13 +1,14 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Input.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
 #include <vector>
 
-class SceneParent
+class Scene
 {
 public:
 	/// Set paused status.
@@ -15,9 +16,9 @@ public:
 	bool getPaused() { return paused; }
 
 	///  Should contain everything that needs to be updated.
-	virtual void update(float deltaTime, sf::Event &events) {};
+	virtual void update(float deltaTime, Input* input) {};
 
-	~SceneParent(); // Deconstructor is scene dependant.
+	~Scene(); // Deconstructor is scene dependant.
 
 	int getGameObjectCount();
 
@@ -26,9 +27,9 @@ public:
 	void remove(GameObject* obj);
 
 protected:
-	/// We shouldn't ever need to create SceneParent directly.
-	SceneParent() : paused(false) {};
-	SceneParent(bool paused) : paused(paused) {};
+	/// We shouldn't ever need to create Scene directly.
+	Scene() : paused(false) {};
+	Scene(bool paused) : paused(paused) {};
 
 	bool paused; // Update is skipped for scenes that are paused.
 

@@ -20,7 +20,7 @@ FrictionScene::~FrictionScene()
 {
 }
 
-void FrictionScene::update(float deltaTime, sf::Event &events)
+void FrictionScene::update(float deltaTime, Input* input)
 {
 	
 }

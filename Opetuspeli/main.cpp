@@ -11,6 +11,7 @@
 #include "SceneSys.h"
 #include "DeleteSystem.h"
 #include "FrictionScene.h"
+#include "Input.h"
 
 #include "Box2D.h"
 
@@ -21,7 +22,6 @@
 #include <Windows.h>
 #include <sstream>
 #include <iomanip>
-
 
 using namespace std;
 using namespace sf;
@@ -36,6 +36,7 @@ int main()
 	const int windowHeight = 720;
 	RenderWindow window(sf::VideoMode(windowWidth, windowHeight), message, Style::Close);
 	//window.setFramerateLimit(60u);
+	Input input(&window);
 
 	//box2D
 	float scale = 75.0f;
@@ -52,12 +53,6 @@ int main()
 	systemManager.add(new PhysicsSystem(world, windowWidth / scale, windowHeight / scale));
 	DeleteSystem* deleteSystem = new DeleteSystem(world, sceneSys.getCurrentScene());
 	systemManager.add(deleteSystem);
-	
-	
-	//input
-	bool spaceWasDown = false;
-	bool oneWasDown = false;
-	bool twoWasDown = false;
 
 	//time
 	LARGE_INTEGER startTime, endTime, frequency, milliSeconds;
@@ -79,46 +74,24 @@ int main()
         }
         window.clear(Color::White);
 
+		//scene
+		sceneSys.getCurrentScene()->update(dt, &input);
+
 		//input
-		if (Keyboard::isKeyPressed(Keyboard::Space))
+		if (input.keyPress(Keyboard::Num1))
 		{
-			sceneSys.getCurrentScene()->update(dt, event);
+			delete world;
+			world = new b2World(gravity);
+			sceneSys.changeScene(new TestScene(scale, world, windowWidth, windowHeight));
 		}
-			/*
-			if (!spaceWasDown)
-				sceneSys.getCurrentScene()->update(dt, event);
-			spaceWasDown = true;
-		}
-		else
-			spaceWasDown = false;
-			*/
-
-		if (Keyboard::isKeyPressed(Keyboard::Num1))
+		if (input.keyPress(Keyboard::Num2))
 		{
-			if (!oneWasDown)
-			{
-				delete world;
-				world = new b2World(gravity);
-				sceneSys.changeScene(new TestScene(scale, world, windowWidth, windowHeight));
-			}
-			oneWasDown = true;
+			delete world;
+			world = new b2World(gravity);
+			sceneSys.changeScene(new FrictionScene(scale, world, windowWidth, windowHeight));
 		}
-		else
-			oneWasDown = false;
-
-		if (Keyboard::isKeyPressed(Keyboard::Num2))
-		{
-			if (!twoWasDown)
-			{
-				delete world;
-				world = new b2World(gravity);
-				sceneSys.changeScene(new FrictionScene(scale, world, windowWidth, windowHeight));
-			}
-			twoWasDown = true;
-		}
-		else
-			twoWasDown = false;
-
+		input.update();
+		
 		systemManager.update(dt, sceneSys.getCurrentScene());
 		world->Step(dt / 1000.0f, 8, 3);
 		window.display();

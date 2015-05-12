@@ -2,6 +2,7 @@
 
 
 using namespace std;
+using namespace sf;
 
 TestScene::TestScene(float scale, b2World* world, int windowWidth, int windowHeight)
 	: mScale(scale), mPhysicsFactory(world), mWindowSize(windowWidth, windowHeight)
@@ -26,11 +27,14 @@ TestScene::~TestScene()
 {
 }
 
-void TestScene::update(float deltaTime, sf::Event &events)
+void TestScene::update(float deltaTime, Input* input)
 {
-	float x = (250 + rand() % (mWindowSize.x - 500)) / mScale;
-	float y = (mWindowSize.y + rand() % 400) / mScale;
-	addGameObject(x, y);
+	if (input->keyDown(Keyboard::Space))
+	{
+		float x = (250 + rand() % (mWindowSize.x - 500)) / mScale;
+		float y = (mWindowSize.y + rand() % 400) / mScale;
+		addGameObject(x, y);
+	}
 }
 
 void TestScene::addGameObject(float x, float y)
