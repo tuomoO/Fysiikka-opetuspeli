@@ -32,7 +32,7 @@ void TestScene::update(float deltaTime, Input* input, RenderWindow* window)
 	if (input->keyDown(Keyboard::Space))
 	{
 		float x = (250 + rand() % (mWindowSize.x - 500)) / mScale;
-		float y = (mWindowSize.y + rand() % 400) / mScale;
+		float y = (1.5f *  mWindowSize.y + rand() % mWindowSize.y) / mScale;
 		addGameObject(x, y);
 	}
 }
